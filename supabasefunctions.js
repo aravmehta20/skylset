@@ -5,6 +5,8 @@ const supabase = createClient(projectURL, anonKey);
 
 
 function editUserData(
-
+const { data, error } = await supabase
+  .from('Opportunities')
+  .select('*');
 
 await supabase.
