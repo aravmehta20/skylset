@@ -8,5 +8,12 @@ function editUserData(
 const { data, error } = await supabase
   .from('Opportunities')
   .select('*');
-
+//fetch method
+const { data, error } = await supabase
+  .from('characters')
+  .select()
+//insert method
+const { error } = await supabase
+  .from('countries')
+  .insert({ id: 1, name: 'Mordor' })
 await supabase.
