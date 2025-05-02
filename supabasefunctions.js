@@ -3,17 +3,11 @@ const projectURL = "https://tgzfwhkjjkxwshupwdse.supabase.co"
 
 const supabase = createClient(projectURL, anonKey);
 
-
-function editUserData(
-const { data, error } = await supabase
-  .from('Opportunities')
-  .select('*');
-//fetch method
-const { data, error } = await supabase
-  .from('characters')
-  .select()
-//insert method
-const { error } = await supabase
-  .from('countries')
-  .insert({ id: 1, name: 'Mordor' })
-await supabase.
+async function getData(tableName = "opportunities", ) {
+  const { data, error } = await supabase
+    .from('Opportunities')
+    .select('*');
+  
+  if (error) console.error(error);
+  else console.log(data);
+}
