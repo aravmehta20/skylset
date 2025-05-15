@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | skylset</title>
+    <link rel="stylesheet" href="../styles/website_theme.css">
+    <link rel="icon" href="../assets/favicon_io/favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --purple: #8A2BE2;
+            --light-purple: #A66FE4;
+            --dark-purple: #5D1C9E;
+            --black: #121212;
+            --white: #FFFFFF;
+            --light-grey: #F5F5F5;
+            --mid-grey: #E0E0E0;
+        }
+
+        .auth-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--mid-grey);
+            background-color: var(--white);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--black);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--mid-grey);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--purple);
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.15);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background-color: var(--purple);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .auth-btn:hover {
+            background-color: var(--dark-purple);
+        }
+
+        .auth-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .auth-links a {
+            color: var(--purple);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .auth-links a:hover {
+            color: var(--dark-purple);
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--mid-grey);
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .auth-tab.active {
+            font-weight: 600;
+            color: var(--purple);
+            border-bottom: 2px solid var(--purple);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .social-login {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 10px;
+            border: 2px solid var(--mid-grey);
+            border-radius: 8px;
+            background-color: var(--white);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .social-btn:hover {
+            border-color: var(--purple);
+        }
+
+        .social-btn img {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .divider {
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: var(--mid-grey);
+        }
+
+        .divider span {
+            position: relative;
+            background-color: var(--white);
+            padding: 0 15px;
+            color: #555;
+        }
+
+        @media (max-width: 768px) {
+            .auth-container {
+                margin: 20px auto;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <!-- Header with Navigation -->
+    <header>
+        <a href="index.html" class="logo">skyl<span>set</span></a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                
+                <li><a href="signin.html" class="active">Sign In</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content - Authentication Page -->
+    <main>
+        <div class="auth-container">
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="login-tab">Sign In</div>
+                <div class="auth-tab" id="register-tab">Register</div>
+            </div>
+
+            <!-- Login Form -->
+            <div class="tab-content active" id="login-content">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Sign In</button>
+                </form>
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <div class="social-login">
+                    <button class="social-btn" id="google-login">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="Google">
+                        Continue with Google
+                    </button>
+                </div>
+
+                <div class="auth-links">
+                    <a href="#" id="forgot-password">Forgot Password?</a>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div class="tab-content" id="register-content">
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="register-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="register-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="register-password" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Create Account</button>
+                </form>
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <div class="social-login">
+                    <button class="social-btn" id="google-register">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="Google">
+                        Sign up with Google
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+  
+        <script src='../scripts/userAuthSupabase.js'></script>
+        <script>
+        // Tab switching ❤️‍🔥
+        document.getElementById('login-tab').addEventListener('click', function() {
+            document.getElementById('login-tab').classList.add('active');
+            document.getElementById('register-tab').classList.remove('active');
+            document.getElementById('login-content').classList.add('active');
+            document.getElementById('register-content').classList.remove('active');
+        });
+
+        document.getElementById('register-tab').addEventListener('click', function() {
+            document.getElementById('register-tab').classList.add('active');
+            document.getElementById('login-tab').classList.remove('active');
+            document.getElementById('register-content').classList.add('active');
+            document.getElementById('login-content').classList.remove('active');
+        });
+
+        // Form submission handling
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Here you would call your Supabase authentication function
+            // For example: loginUser(email, password);
+            console.log('Login attempt:', email);
+            
+            // Placeholder for actual authentication
+            alert('Login functionality will be implemented with Supabase');
+        });
+
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            // Password matching validation
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            // Here you would call your Supabase registration function
+            // For example: registerUser(name, email, password);
+            console.log('Registration attempt:', name, email);
+            signUp(name, email, password);
+            // Placeholder for actual registration
+            
+        });
+
+        // Social login handlers
+        document.getElementById('google-login').addEventListener('click', function() {
+            // Placeholder for Google login with Supabase
+            console.log('Google login clicked');
+            alert('Google login will be implemented later');
+        });
+
+        document.getElementById('google-register').addEventListener('click', function() {
+            // Placeholder for Google registration with Supabase
+            console.log('Google registration clicked');
+            alert('Google registration will be implemented later');
+        });
+
+        // Forgot password handler
+        document.getElementById('forgot-password').addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = prompt('Please enter your email to reset your password:');
+            if (email) {
+                // Here you would call your Supabase password reset function
+                // For example: resetPassword(email);
+                console.log('Password reset for:', email);
+                alert('Password reset email will be sent (to be implemented with Supabase)');
+            }
+        });
+    </script>
+</body>
+
+</html>

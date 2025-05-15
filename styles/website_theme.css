@@ -1,0 +1,490 @@
+:root {
+    --purple: #8A2BE2;
+    --light-purple: #A66FE4;
+    --dark-purple: #5D1C9E;
+    --black: #121212;
+    --white: #FFFFFF;
+    --light-grey: #F5F5F5;
+    --mid-grey: #E0E0E0;
+}
+.purple-border-card {
+    position: relative;
+    border-left: 5px solid #8a2be2; /* Purple border on the left side */
+    box-shadow: 0 3px 10px rgba(138, 43, 226, 0.15); /* Subtle purple shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.purple-border-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.25);
+}
+
+.purple-border-card .card-body {
+    padding: 1.5rem;
+}
+
+.purple-border-card .opportunity-type {
+    background-color: #f0e6ff; /* Light purple background */
+    color: #8a2be2; /* Purple text */
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+
+.purple-border-card .view-button {
+    color: #8a2be2; /* Purple text for button */
+    font-weight: 600;
+}
+
+.purple-border-card .view-button:hover {
+    color: #6a1cb7; /* Darker purple on hover */
+    text-decoration: none;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+    background-color: var(--white);
+    color: var(--black);
+    line-height: 1.6;
+}
+
+header {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--mid-grey);
+    background-color: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--black);
+    text-decoration: none;
+}
+
+.logo span {
+    color: var(--purple);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--black);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+    padding-bottom: 0.2rem;
+}
+
+nav a:hover {
+    color: var(--purple);
+}
+
+nav a.active {
+    color: var(--purple);
+}
+
+nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--purple);
+    border-radius: 1px;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.search-hero {
+    text-align: center;
+    margin: 2rem 0 4rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+h1 span {
+    color: var(--purple);
+}
+
+.search-hero p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 0 auto;
+    gap: 1.5rem;
+}
+
+.search-box {
+    display: flex;
+    position: relative;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 2px solid var(--mid-grey);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.15);
+}
+
+.search-box svg {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #777;
+}
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 180px;
+}
+
+.filter-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+.filter-group select {
+    padding: 0.75rem;
+    border: 2px solid var(--mid-grey);
+    border-radius: 8px;
+    background-color: var(--white);
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.15);
+}
+
+.search-button {
+    background-color: var(--purple);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 1rem;
+    align-self: flex-end;
+}
+
+.search-button:hover {
+    background-color: var(--dark-purple);
+}
+
+.results {
+    margin-top: 4rem;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.result-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    border: 1px solid var(--mid-grey);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.opportunity-type {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: rgba(138, 43, 226, 0.1);
+    color: var(--purple);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+}
+
+.card p {
+    color: #555;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--mid-grey);
+}
+
+.deadline {
+    font-size: 0.9rem;
+}
+
+.deadline-soon {
+    color: #e53935;
+    font-weight: 600;
+}
+
+.view-button {
+    color: var(--purple);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.view-button:hover {
+    color: var(--dark-purple);
+}
+
+.loader {
+    display: none;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+/* For 'About Us' and 'Quiz' pages */
+.page-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.page-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--black);
+}
+
+.page-content h2 span {
+    color: var(--purple);
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.team-member {
+    text-align: center;
+}
+
+.team-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: var(--light-grey);
+    margin: 0 auto 1rem;
+    overflow: hidden;
+}
+
+.team-member h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.team-member p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Quiz Page */
+.quiz-container {
+    background-color: var(--light-grey);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.question {
+    margin-bottom: 2rem;
+}
+
+.question h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--white);
+    border: 1px solid var(--mid-grey);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.option:hover {
+    border-color: var(--purple);
+}
+
+.option input {
+    margin-right: 1rem;
+}
+
+.quiz-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.prev-button, .next-button {
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.prev-button {
+    background-color: var(--white);
+    border: 1px solid var(--mid-grey);
+    color: var(--black);
+}
+
+.prev-button:hover {
+    background-color: var(--light-grey);
+}
+
+.next-button {
+    background-color: var(--purple);
+    border: none;
+    color: var(--white);
+}
+
+.next-button:hover {
+    background-color: var(--dark-purple);
+}
+
+.save-later-button {
+    margin-top: 10px;
+    background-color: #ffffff; /* white background */
+    border: 1px solid #ccc;
+    color: #6a1b9a; /* purple heart */
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.save-later-button:hover {
+    background-color: #f3e5f5; /* light purple hover */
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    nav ul {
+        gap: 1rem;
+    }
+    
+    .search-container {
+        gap: 1rem;
+    }
+    
+    .filters {
+        flex-direction: column;
+    }
+    
+    .search-button {
+        align-self: stretch;
+    }
+    
+    .result-cards {
+        grid-template-columns: 1fr;
+    }
+}

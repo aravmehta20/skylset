@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>skylset | High School Internships & Scholarships</title>
+    <link rel="stylesheet" href="../styles/website_theme.css">
+    <link rel="icon" href="../assets/favicon_io/favicon.ico" type="image/x-icon">
+
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <!-- Header with Navigation -->
+    <header>
+        <a href="index.html" class="logo">skyl<span>set</span></a>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                
+                <li><a href="signin.html" class="account-btn">Sign In</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content - Home/Search Page -->
+    <main>
+        <section class="search-hero">
+            <h1>Find Your Perfect <span>Opportunity</span></h1>
+            <p>Discover high-quality internships and scholarships curated specifically for high school students.</p>
+        </section>
+
+        <section class="search-container">
+            <div class="search-box">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="search-input" placeholder="Search for internships, scholarships, or keywords...">
+            </div>
+
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="type">Opportunity Type</label>
+                    <select id="type">
+                        <option value="">All Types</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Scholarship">Scholarship</option>
+                        <option value="Program">Summer Program</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="grade">Grade Level</label>
+                    <select id="grade">
+                        <option value="">All Grades</option>
+                        <option value="9">Freshman</option>
+                        <option value="10">Sophomore</option>
+                        <option value="11">Junior</option>
+                        <option value="12">Senior</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="area_of_interest">Interest Area</label>
+                    <select id="area_of_interest">
+                        <option value="">All Interests</option>
+<option value="stem">STEM</option>
+<option value="arts">Arts & Humanities</option>
+<option value="business">Business</option>
+<option value="healthcare">Healthcare</option>
+<option value="engineering">Engineering</option>
+<option value="health_science">Health Science/Medicine</option>
+<option value="biology_chemistry">Biology/Chemistry</option>
+<option value="mathematics">Mathematics</option>
+<option value="computer_science">Computer Science</option>
+<option value="economics">Economics</option>
+<option value="law_politics">Law/Politics</option>
+<option value="psychology">Psychology</option>
+<option value="education">Education</option>
+<option value="art_design">Art/Design</option>
+<option value="writing_journalism">Writing/Journalism</option>
+<option value="environmental_science">Environmental Science</option>
+<option value="performing_arts">Performing Arts</option>
+<option value="animal_science">Animal Science</option>
+
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="location">Location</label>
+                    <select id="location">
+                        <option value = "All">All</option>
+                        <option value="In-Person">In Person</option>
+                        <option value="Virtual">Virtual</option>
+                        
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="competitiveness">Competitiveness</label>
+                    <select id="competitiveness">
+                        <option value="">Any</option>
+                        <option value="beginner">Low</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="competitive">High</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="eligibility">Eligibility</label>
+                    <select id="eligibility">
+                        <option value="">All Eligibility</option>
+                        <option value="minority">Minority Students</option>
+                        <option value="female">Female Students</option>
+                        <option value="low-income">Low Income</option>
+                        <option value="firstgen">First Generation</option>
+                        <option value="public">Public School Students</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="deadline">Deadline</label>
+                    <select id="deadline">
+                        <option value="">Any Deadline</option>
+                        <option value="all">All Opportunities</option>
+                        <option value="deadlineNotPassed">Deadline Not Passed</option>
+                        
+                    </select>
+                </div>
+            </div>
+
+            <button id="search-button" class="search-button">Find Opportunities</button>
+        </section>
+
+        <section class="results">
+            <div class="results-header">
+                <h2>Featured Opportunities</h2>
+            </div>
+
+            <div class="result-cards" id="card-container">
+                <!-- Cards will be dynamically loaded here -->
+                <div class="loader" id="loader">Loading opportunities...</div>
+            </div>
+        </section>
+    </main>
+    <script src='../scripts/cardLoader.js'></script>
+    <script src='../scripts/supabasefunctions.js'></script>
+    <script>
+
+
+        // When the DOM is fully loaded load initial cards
+        document.addEventListener('DOMContentLoaded', async () => {
+            const opportunities = [];
+            updateCards();
+            loadAllCards(opportunities);
+        });
+
+        //reload cards when search bar is updated
+        const searchInputField = document.getElementById('search-input');
+        let timeout;
+        const debounceValue = 1000;
+        searchInputField.addEventListener("input", () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                updateCards(); // Only fires after 300ms pause
+            }, debounceValue);
+        });
+
+        //build filter object
+        const filters = {
+            type: document.getElementById('type'),
+            grade: document.getElementById('grade'),
+            interest: document.getElementById('area_of_interest'),
+            
+            competitiveness: document.getElementById('competitiveness'),
+            eligibility: document.getElementById('eligibility'),
+            deadline: document.getElementById('deadline')
+            
+        };
+        console.log(filters);
+        //iterate through filters and add event listeners
+        for (const i in filters) {
+            filters[i].addEventListener('change', updateCards);
+        }
+
+
+        //remove the current cards and load new ones
+        async function updateCards() {
+            const opportunities = await requestData(searchInputField.value, filters);
+            loadAllCards(opportunities);
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | skylset</title>
+    <style>
+        :root {
+            --purple: #8A2BE2;
+            --light-purple: #A66FE4;
+            --dark-purple: #5D1C9E;
+            --black: #121212;
+            --white: #FFFFFF;
+            --light-grey: #F5F5F5;
+            --mid-grey: #E0E0E0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+        }
+        
+        header {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--mid-grey);
+            background-color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--black);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--purple);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+            padding-bottom: 0.2rem;
+        }
+        
+        nav a:hover {
+            color: var(--purple);
+        }
+        
+        nav a.active {
+            color: var(--purple);
+        }
+        
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--purple);
+            border-radius: 1px;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .page-header h1 span {
+            color: var(--purple);
+        }
+        
+        .page-header p {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .mission-section {
+            background-color: var(--light-grey);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .mission-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--black);
+        }
+        
+        .mission-section h2 span {
+            color: var(--purple);
+        }
+        
+        .mission-section p {
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--purple);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: #555;
+        }
+        
+        .team-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .team-section h2 span {
+            color: var(--purple);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .team-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: var(--light-grey);
+            margin: 0 auto 1rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--purple);
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        
+        .team-member h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-member p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.75rem;
+        }
+        
+        .social-link {
+            color: var(--purple);
+            margin: 0 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        
+        .social-link:hover {
+            color: var(--dark-purple);
+            text-decoration: underline;
+        }
+        
+        .contact-section {
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .contact-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-button {
+            display: inline-block;
+            background-color: var(--purple);
+            color: var(--white);
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        
+        .contact-button:hover {
+            background-color: var(--dark-purple);
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .mission-section {
+                padding: 1.5rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <a href="index.html" class="logo">skyl<span>set</span></a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+                
+                <li><a href="signin.html" class="account-btn">Sign In</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <div class="page-content">
+            <section class="page-header">
+                <h1>Created <span>By Students</span>, For Students</h1>
+                <p>We know how confusing and overwhelming the opportunity search can be. We've been there ourselves.</p>
+            </section>
+            
+            <section class="mission-section">
+                <h2>Our <span>Mission</span></h2>
+                <p>We believe every high school student deserves access to life-changing opportunities, regardless of their background or connections. Unfortunately, many amazing internships and scholarships go undiscovered because they're buried in complex databases or only shared through exclusive networks.</p>
+                <p>skylset was created to level the playing field. We provide clear, transparent information about each opportunity's competitiveness, application requirements, and insider tips that you won't find anywhere else.</p>
+                <p>Our goal is simple: help you find the perfect opportunities that match your unique interests, skills, and goals—without the frustration and confusion.</p>
+            </section>
+            
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Curated Opportunities</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Interest Categories</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">10k+</div>
+                    <div class="stat-label">Students Helped</div>
+                </div>
+            </section>
+            
+            <section class="team-section">
+                <h2>Meet Our <span>Team</span></h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">A</div>
+                        <h3>Arav Mehta</h3>
+                        <p>Founder & Developer</p>
+                        <div>
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">Twitter</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+            
+            <section class="contact-section">
+                <h2>Want to get in touch?</h2>
+                <a href="mailto:hello@skylset.com" class="contact-button">Contact Us</a>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
