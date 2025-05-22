@@ -100,5 +100,5 @@ function addCommasToPrice(price){
     for(let i = priceStr.length-4; i >=0; i-=3){
         priceStr = priceStr.substring(0,i+1) + "," + priceStr.substring(i+1);
     }
-    return priceStr
+    return priceStr;
 }
