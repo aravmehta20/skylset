@@ -7,7 +7,7 @@ const CARD_TEMPLATE = `
         <span class="opportunity-type">{{type}}</span>
         <h3>{{name}}</h3>
         <div class="card-info">
-            <p><strong>Price:</strong>$ {{price}}</p>
+            <p><strong>Price:</strong>{{price}}</p>
             <p><strong>SkylScore Rating:</strong> {{skylscore}}</p>
             <p><strong>Area of Interest:</strong> {{area_of_interest}}</p>
         </div>
@@ -34,9 +34,9 @@ function editCardTemplate(template, opportunity) {
     // Replace all placeholders with data
     card = card.replace('{{type}}', opportunity.type);
     card = card.replace('{{name}}', opportunity.name);
-    card = card.replace('{{price}}', opportunity.price);
+    card = card.replace('{{price}}', " $" + opportunity.price);
     card = card.replace('{{skylscore}}', opportunity.skylscore);
-    card = card.replace('{{area_of_interest}}', opportunity.area_of_interest);
+    card = card.replace('{{area_of_interest}}', arrayToFormattedString(opportunity.area_of_interest));
     card = card.replace('{{deadline}}', opportunity.deadline);
     card = card.replace('{{hyperlink}}', opportunity.hyperlink || '#');
     
@@ -49,7 +49,7 @@ function clearCards(){
 }
 
 // Main function to load opportunities and render them into cards
-function loadAllCards(opportunities) {
+export function loadAllCards(opportunities) {
     // Get the card container element
     const cardContainer = document.getElementById('card-container');
     const loader = document.getElementById('loader');
@@ -81,5 +81,24 @@ function loadAllCards(opportunities) {
     });
 }
 
-// Export functions for use in other scripts
-window.loadAllCards = loadAllCards;
+function arrayToFormattedString(array){
+    let result = "";
+    array.forEach(element => {
+        result+=element+", ";
+    });
+    return result.substring(0,result.length-2);
+}
+function priceToFormattedString(price){
+    if(price===0){
+        return " Free";
+    }else{
+        return " $" + addCommasToPrice(price);
+    }
+}
+function addCommasToPrice(price){
+    let priceStr = price.toString();
+    for(let i = priceStr.length-4; i >=0; i-=3){
+        priceStr = priceStr.substring(0,i+1) + "," + priceStr.substring(i+1);
+    }
+    return priceStr
+}

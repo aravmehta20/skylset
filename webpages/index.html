@@ -7,7 +7,89 @@
     <title>skylset | High School Internships & Scholarships</title>
     <link rel="stylesheet" href="../styles/website_theme.css">
     <link rel="icon" href="../assets/favicon_io/favicon.ico" type="image/x-icon">
+    <style>
+        /* Multi-select dropdown styles */
+        .multi-select-container {
+            position: relative;
+            width: 100%;
+        }
 
+        .multi-select-selected {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .multi-select-selected:after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #333;
+        }
+
+        .multi-select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            border: 1px solid #ccc;
+            border-top: none;
+            background-color: white;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            border-radius: 0 0 4px 4px;
+            display: none;
+        }
+
+        .multi-select-dropdown.show {
+            display: block;
+        }
+
+        .multi-select-option {
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .multi-select-option:hover {
+            background-color: #f5f5f5;
+        }
+
+        .multi-select-option input {
+            margin-right: 8px;
+        }
+
+        .selected-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .selected-tag {
+            background-color: #e9f2ff;
+            border: 1px solid #c3d9ff;
+            border-radius: 15px;
+            padding: 3px 8px;
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+        }
+
+        .tag-remove {
+            margin-left: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,7 +102,7 @@
             <ul>
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="about.html">About Us</a></li>
-                
+
                 <li><a href="signin.html" class="account-btn">Sign In</a></li>
             </ul>
         </nav>
@@ -45,92 +127,228 @@
 
             <div class="filters">
                 <div class="filter-group">
-                    <label for="type">Opportunity Type</label>
-                    <select id="type">
-                        <option value="">All Types</option>
-                        <option value="Internship">Internship</option>
-                        <option value="Scholarship">Scholarship</option>
-                        <option value="Program">Summer Program</option>
-                    </select>
+                    <label>Opportunity Type</label>
+                    <div class="multi-select-container" id="type-container">
+                        <div class="multi-select-selected" id="type-selected">All Types</div>
+                        <div class="multi-select-dropdown" id="type-dropdown">
+                            <div class="multi-select-option">
+                                <input type="radio" name="type" id="type-all" value="" checked>
+                                <label for="type-all">All Types</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="type" id="type-internship" value="Internship">
+                                <label for="type-internship">Internship</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="type" id="type-scholarship" value="Scholarship">
+                                <label for="type-scholarship">Scholarship</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="type" id="type-program" value="Program">
+                                <label for="type-program">Summer Program</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="filter-group">
-                    <label for="grade">Grade Level</label>
-                    <select id="grade">
-                        <option value="">All Grades</option>
-                        <option value="9">Freshman</option>
-                        <option value="10">Sophomore</option>
-                        <option value="11">Junior</option>
-                        <option value="12">Senior</option>
-                    </select>
+                    <label>Grade Level</label>
+                    <div class="multi-select-container" id="grade-container">
+                        <div class="multi-select-selected" id="grade-selected">All Grades</div>
+                        <div class="multi-select-dropdown" id="grade-dropdown">
+                            <div class="multi-select-option">
+                                <input type="radio" name="grade" id="grade-all" value="" checked>
+                                <label for="grade-all">All Grades</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="grade" id="grade-9" value="9">
+                                <label for="grade-9">Freshman</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="grade" id="grade-10" value="10">
+                                <label for="grade-10">Sophomore</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="grade" id="grade-11" value="11">
+                                <label for="grade-11">Junior</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="grade" id="grade-12" value="12">
+                                <label for="grade-12">Senior</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="filter-group">
-                    <label for="area_of_interest">Interest Area</label>
-                    <select id="area_of_interest">
-                        <option value="">All Interests</option>
-<option value="stem">STEM</option>
-<option value="arts">Arts & Humanities</option>
-<option value="business">Business</option>
-<option value="healthcare">Healthcare</option>
-<option value="engineering">Engineering</option>
-<option value="health_science">Health Science/Medicine</option>
-<option value="biology_chemistry">Biology/Chemistry</option>
-<option value="mathematics">Mathematics</option>
-<option value="computer_science">Computer Science</option>
-<option value="economics">Economics</option>
-<option value="law_politics">Law/Politics</option>
-<option value="psychology">Psychology</option>
-<option value="education">Education</option>
-<option value="art_design">Art/Design</option>
-<option value="writing_journalism">Writing/Journalism</option>
-<option value="environmental_science">Environmental Science</option>
-<option value="performing_arts">Performing Arts</option>
-<option value="animal_science">Animal Science</option>
-
-                    </select>
+                    <label>Interest Area</label>
+                    <div class="multi-select-container" id="interests-container">
+                        <div class="multi-select-selected" id="interests-selected">All Interests</div>
+                        <div class="selected-tags" id="interests-tags"></div>
+                        <div class="multi-select-dropdown" id="interests-dropdown">
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interests-all" value="All" >
+                                <label for="interest-all">All Interests</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-arts" value="Art/Design">
+                                <label for="interest-arts">Art/Design</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-business" value="Business">
+                                <label for="interest-business">Business</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-engineering" value="Engineering">
+                                <label for="interest-engineering">Engineering</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-health_science" value="Health Science/Medicine">
+                                <label for="interest-health_science">Health Science/Medicine</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-biology_chemistry" value="Biology/Chemistry">
+                                <label for="interest-biology_chemistry">Biology/Chemistry</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-mathematics" value="Mathematics">
+                                <label for="interest-mathematics">Mathematics</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-computer_science" value="Computer Science">
+                                <label for="interest-computer_science">Computer Science</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-economics" value="Economics">
+                                <label for="interest-economics">Economics</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-law_politics" value="Law/Politics">
+                                <label for="interest-law_politics">Law/Politics</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-psychology" value="Psychology">
+                                <label for="interest-psychology">Psychology</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-education" value="Education">
+                                <label for="interest-education">Education</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-writing_journalism" value="Writing/Journalism">
+                                <label for="interest-writing_journalism">Writing/Journalism</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-environmental_science" value="Environmental Science">
+                                <label for="interest-environmental_science">Environmental Science</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-performing_arts" value="Performing Arts">
+                                <label for="interest-performing_arts">Performing Arts</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="interest-animal_science" value="Animal Science">
+                                <label for="interest-animal_science">Animal Science</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="filter-group">
-                    <label for="location">Location</label>
-                    <select id="location">
-                        <option value = "All">All</option>
-                        <option value="In-Person">In Person</option>
-                        <option value="Virtual">Virtual</option>
-                        
-                    </select>
+                    <label>Location</label>
+                    <div class="multi-select-container" id="location-container">
+                        <div class="multi-select-selected" id="location-selected">All Locations</div>
+                        <div class="multi-select-dropdown" id="location-dropdown">
+                            <div class="multi-select-option">
+                                <input type="radio" name="location" id="location-all" value="All" checked>
+                                <label for="location-all">All Locations</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="location" id="location-in-person" value="In Person">
+                                <label for="location-in-person">In Person</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="location" id="location-virtual" value="Virtual">
+                                <label for="location-virtual">Virtual</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="filter-group">
-                    <label for="competitiveness">Competitiveness</label>
-                    <select id="competitiveness">
-                        <option value="">Any</option>
-                        <option value="beginner">Low</option>
-                        <option value="moderate">Moderate</option>
-                        <option value="competitive">High</option>
-                    </select>
+                    <label>Skylscore</label>
+                    <div class="multi-select-container" id="skylscore-container">
+                        <div class="multi-select-selected" id="skylscore-selected">Any Skylscore</div>
+                        <div class="multi-select-dropdown" id="skylscore-dropdown">
+                            <div class="multi-select-option">
+                                <input type="radio" name="skylscore" id="skylscore-any" value="All" checked>
+                                <label for="skylscore-any">Any Skylscore</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="skylscore" id="skylscore-low" value="low">
+                                <label for="skylscore-low">Low</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="skylscore" id="skylscore-moderate" value="moderate">
+                                <label for="skylscore-moderate">Moderate</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="skylscore" id="skylscore-high" value="high">
+                                <label for="skylscore-high">High</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="filter-group">
-                    <label for="eligibility">Eligibility</label>
-                    <select id="eligibility">
-                        <option value="">All Eligibility</option>
-                        <option value="minority">Minority Students</option>
-                        <option value="female">Female Students</option>
-                        <option value="low-income">Low Income</option>
-                        <option value="firstgen">First Generation</option>
-                        <option value="public">Public School Students</option>
-                    </select>
+                    <label>Eligibility</label>
+                    <div class="multi-select-container" id="eligibility-container">
+                        <div class="multi-select-selected" id="eligibility-selected">Any Eligibility</div>
+                        <div class="selected-tags" id="eligibility-tags"></div>
+                        <div class="multi-select-dropdown" id="eligibility-dropdown">
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="eligibility-all" value="All" >
+                                <label for="eligibility-all">Any Eligibility</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="eligibility-minority" value="Minority Students">
+                                <label for="eligibility-minority">Minority Students</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="eligibility-female" value="Female Students">
+                                <label for="eligibility-female">Female Students</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="eligibility-low-income" value="Low Income">
+                                <label for="eligibility-low-income">Low Income</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="eligibility-firstgen" value="First Generation">
+                                <label for="eligibility-firstgen">First Generation</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="checkbox" id="eligibility-public" value="Public">
+                                <label for="eligibility-public">Public School Students</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="filter-group">
-                    <label for="deadline">Deadline</label>
-                    <select id="deadline">
-                        <option value="">Any Deadline</option>
-                        <option value="all">All Opportunities</option>
-                        <option value="deadlineNotPassed">Deadline Not Passed</option>
-                        
-                    </select>
+                    <label>Deadline</label>
+                    <div class="multi-select-container" id="deadline-container">
+                        <div class="multi-select-selected" id="deadline-selected">Any Deadline</div>
+                        <div class="multi-select-dropdown" id="deadline-dropdown">
+                            <div class="multi-select-option">
+                                <input type="radio" name="deadline" id="deadline-all" value="All" checked>
+                                <label for="deadline-any">Any Deadline</label>
+                            </div>
+                            <div class="multi-select-option">
+                                <input type="radio" name="deadline" id="deadline-not-passed" value="Still Active">
+                                <label for="deadline-not-passed">Still Active</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -148,17 +366,39 @@
             </div>
         </section>
     </main>
-    <script src='../scripts/cardLoader.js'></script>
-    <script src='../scripts/supabasefunctions.js'></script>
-    <script>
-
-
-        // When the DOM is fully loaded load initial cards
+    <script type="module">
+        import { fetchOpportunities } from '../scripts/opportunityFetcher.js';
+        import { loadAllCards } from '../scripts/cardLoader.js';
+        import { contains } from '../scripts/miscellaneousFunctions.js';
+        import { filterByType, filterByGrade, filterByInterest, filterByLocation, filterBySkylscore, filterByEligibility, filterByDeadline, sanitizeNullFilters } from "../scripts/filters.js";
+        import { setupMultiSelect, setupSingleSelect } from '../scripts/checkboxes.js';
+        // Multi-select dropdown functionality
         document.addEventListener('DOMContentLoaded', async () => {
             const opportunities = [];
             updateCards();
-            loadAllCards(opportunities);
+
+            // Set up the interest area and eligibility multi-select
+            setupMultiSelect('interests');
+            setupMultiSelect('eligibility');
+            
+            setupSingleSelect('type');
+            setupSingleSelect('grade');
+            setupSingleSelect('location');
+            setupSingleSelect('skylscore');
+            setupSingleSelect('deadline');
+            // Add event listener for search button to collect all selected values
+
+            // Get selected interest areas
+
+            // Continue with  search logic here
         });
+
+
+
+
+
+
+
 
         //reload cards when search bar is updated
         const searchInputField = document.getElementById('search-input');
@@ -171,30 +411,79 @@
             }, debounceValue);
         });
 
-        //build filter object
-        const filters = {
-            type: document.getElementById('type'),
-            grade: document.getElementById('grade'),
-            interest: document.getElementById('area_of_interest'),
-            
-            competitiveness: document.getElementById('competitiveness'),
-            eligibility: document.getElementById('eligibility'),
-            deadline: document.getElementById('deadline')
-            
-        };
-        console.log(filters);
-        //iterate through filters and add event listeners
-        for (const i in filters) {
-            filters[i].addEventListener('change', updateCards);
-        }
+        //build filter objects(for ladding event listeners later)
+        const filterDropdownDOMs = ['type', 'grade', 'location', 'skylscore', 'deadline'];
+        filterDropdownDOMs.forEach(filter => {
+            const dropdown = document.querySelectorAll(`input[name="${filter}"]`);
+            dropdown.forEach(option => {
+                option.addEventListener('change', updateCards);
+            });
+        });
+
+        // Add event listeners to all checkboxes in multi-selects
+        const checkboxContainers = ['interests-dropdown', 'eligibility-dropdown'];
+        checkboxContainers.forEach(containerId => {
+            const checkboxes = document.querySelectorAll(`#${containerId} input[type="checkbox"]`);
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateCards);
+            });
+        });
 
 
         //remove the current cards and load new ones
         async function updateCards() {
-            const opportunities = await requestData(searchInputField.value, filters);
-            loadAllCards(opportunities);
+            loadAllCards(await fetchOpportunities(searchInputField.value, updatedFilters()));
         }
+        function updatedFilters() {
+            //fill in interest checkbixes
+            const interestValues = [];
+            if (document.getElementById('interests-all').checked) {
+                interestValues.push('all');
+            } else {
+                document.querySelectorAll('#interests-dropdown input[type="checkbox"]:not([id="interest-all"]):checked').forEach(checkbox => {
+                    interestValues.push(checkbox.value);
+                });
+            }
 
+            // Get selected eligibility criteria
+            const eligibilityValues = [];
+            if (document.getElementById('eligibility-all').checked) {
+                eligibilityValues.push('all');
+            } else {
+                document.querySelectorAll('#eligibility-dropdown input[type="checkbox"]:not([id="eligibility-all"]):checked').forEach(checkbox => {
+                    eligibilityValues.push(checkbox.value);
+                });
+            }
+
+            
+
+            const typeValue = document.querySelector('input[name="type"]:checked').value;
+            const gradeInput = document.querySelector('input[name="grade"]:checked');
+            const gradeValue = gradeInput ? (gradeInput.value === '' ? -1 : parseInt(gradeInput.value)) : -1;
+            const locationValue = document.querySelector('input[name="location"]:checked').value;
+            const skylscoreValue = document.querySelector('input[name="skylscore"]:checked').value;
+            const deadlineValue = document.querySelector('input[name="deadline"]:checked').value;
+            
+            console.log('Selected Type:', typeValue);
+            console.log('Selected Grade:', gradeValue);
+            console.log('Selected Interests:', interestValues);
+            console.log('Selected Location:', locationValue);
+            console.log('Selected Skylscore:', skylscoreValue);
+            console.log('Selected Eligibility:', eligibilityValues);
+            console.log('Selected Deadline:', deadlineValue);
+            return {
+                type: typeValue,
+                grade: gradeValue,
+                area_of_interest: interestValues,
+                location: locationValue,
+                skylscore: skylscoreValue,
+                eligibility: eligibilityValues,
+                deadline: deadlineValue
+            }
+        }
+        //Update Cards when find opportunities button is clicked
+        const findOpportunitiesButton = document.getElementById('search-button');
+        findOpportunitiesButton.addEventListener('click', updateCards);
     </script>
 </body>
 
