@@ -8,7 +8,9 @@ const default_filters = {
     eligibility: ["All"],
     deadline: "All"
 }
-
+export function filterByID(query, id){
+    return query.in('ID',id);
+}
 export function filterByType(query, type) {
     if (contains(type, "Scholarship")) {
         return query.ilike('TYPE','%scholarship%');
@@ -16,8 +18,8 @@ export function filterByType(query, type) {
     if (contains(type, "Internship")) {
         return query.ilike('TYPE','%internship%');
     }
-    if (contains(type, "Research Opportunity")) {
-        return query.ilike('TYPE','%research%');
+    if (contains(type, "Academic Program")) {
+        return query.ilike('TYPE','%academic%');
     }
     return query;
 }

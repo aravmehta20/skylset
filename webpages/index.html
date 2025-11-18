@@ -102,8 +102,7 @@
             <ul>
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="about.html">About Us</a></li>
-
-                <li><a href="signin.html" class="account-btn">Sign In</a></li>
+                
             </ul>
         </nav>
     </header>
@@ -145,7 +144,7 @@
                             </div>
                             <div class="multi-select-option">
                                 <input type="radio" name="type" id="type-program" value="Program">
-                                <label for="type-program">Summer Program</label>
+                                <label for="type-program">Academic Program</label>
                             </div>
                         </div>
                     </div>
@@ -187,7 +186,7 @@
                         <div class="selected-tags" id="interests-tags"></div>
                         <div class="multi-select-dropdown" id="interests-dropdown">
                             <div class="multi-select-option">
-                                <input type="checkbox" id="interests-all" value="All" >
+                                <input type="checkbox" id="interests-all" value="All">
                                 <label for="interest-all">All Interests</label>
                             </div>
                             <div class="multi-select-option">
@@ -239,7 +238,8 @@
                                 <label for="interest-writing_journalism">Writing/Journalism</label>
                             </div>
                             <div class="multi-select-option">
-                                <input type="checkbox" id="interest-environmental_science" value="Environmental Science">
+                                <input type="checkbox" id="interest-environmental_science"
+                                    value="Environmental Science">
                                 <label for="interest-environmental_science">Environmental Science</label>
                             </div>
                             <div class="multi-select-option">
@@ -276,13 +276,18 @@
                 </div>
 
                 <div class="filter-group">
-                    <label>Skylscore</label>
+                    <label>
+                        Skylscore
+                        <span class="help-icon"
+                            data-tooltip="A 1-10 index rating the competitiveness of each opportunity.">?</span>
+                    </label>
+
                     <div class="multi-select-container" id="skylscore-container">
-                        <div class="multi-select-selected" id="skylscore-selected">Any Skylscore</div>
+                        <div class="multi-select-selected" id="skylscore-selected">Any SkylScore</div>
                         <div class="multi-select-dropdown" id="skylscore-dropdown">
                             <div class="multi-select-option">
                                 <input type="radio" name="skylscore" id="skylscore-any" value="All" checked>
-                                <label for="skylscore-any">Any Skylscore</label>
+                                <label for="skylscore-any">Any SkylScore</label>
                             </div>
                             <div class="multi-select-option">
                                 <input type="radio" name="skylscore" id="skylscore-low" value="low">
@@ -300,6 +305,56 @@
                     </div>
                 </div>
 
+                <style>
+                    .filter-group label {
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        margin-bottom: 0.4rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.3rem;
+                        color: var(--black);
+                    }
+
+                    .filter-group label .help-icon {
+                        display: inline-block;
+                        width: 16px;
+                        height: 16px;
+                        font-size: 0.9rem;
+                        background-color: var(--light-purple);
+                        color: white;
+                        border-radius: 50%;
+                        text-align: center;
+                        line-height: 16px;
+                        cursor: pointer;
+                        position: relative;
+                        font-weight: 600;
+                    }
+
+                    .filter-group label .help-icon::after {
+                        content: attr(data-tooltip);
+                        position: absolute;
+                        bottom: 125%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background-color: var(--black);
+                        color: var(--white);
+                        padding: 0.4rem 0.6rem;
+                        border-radius: 4px;
+                        font-size: 0.75rem;
+                        white-space: nowrap;
+                        opacity: 0;
+                        pointer-events: none;
+                        transition: opacity 0.2s ease;
+                        z-index: 10;
+                    }
+
+                    .filter-group label .help-icon:hover::after {
+                        opacity: 1;
+                    }
+                </style>
+
+
                 <div class="filter-group">
                     <label>Eligibility</label>
                     <div class="multi-select-container" id="eligibility-container">
@@ -307,12 +362,12 @@
                         <div class="selected-tags" id="eligibility-tags"></div>
                         <div class="multi-select-dropdown" id="eligibility-dropdown">
                             <div class="multi-select-option">
-                                <input type="checkbox" id="eligibility-all" value="All" >
+                                <input type="checkbox" id="eligibility-all" value="All">
                                 <label for="eligibility-all">Any Eligibility</label>
                             </div>
                             <div class="multi-select-option">
                                 <input type="checkbox" id="eligibility-minority" value="Minority Students">
-                                <label for="eligibility-minority">Minority Students</label>
+                                <label for="eligibility-minority">Public School Students</label>
                             </div>
                             <div class="multi-select-option">
                                 <input type="checkbox" id="eligibility-female" value="Female Students">
@@ -327,8 +382,12 @@
                                 <label for="eligibility-firstgen">First Generation</label>
                             </div>
                             <div class="multi-select-option">
+                                <input type="checkbox" id="eligibility-firstgen" value="First Generation">
+                                <label for="eligibility-firstgen">Hispanic/Latino Students</label>
+                            </div>
+                            <div class="multi-select-option">
                                 <input type="checkbox" id="eligibility-public" value="Public">
-                                <label for="eligibility-public">Public School Students</label>
+                                <label for="eligibility-public">Other</label>
                             </div>
                         </div>
                     </div>
@@ -380,7 +439,7 @@
             // Set up the interest area and eligibility multi-select
             setupMultiSelect('interests');
             setupMultiSelect('eligibility');
-            
+
             setupSingleSelect('type');
             setupSingleSelect('grade');
             setupSingleSelect('location');
@@ -455,7 +514,7 @@
                 });
             }
 
-            
+
 
             const typeValue = document.querySelector('input[name="type"]:checked').value;
             const gradeInput = document.querySelector('input[name="grade"]:checked');
@@ -463,7 +522,7 @@
             const locationValue = document.querySelector('input[name="location"]:checked').value;
             const skylscoreValue = document.querySelector('input[name="skylscore"]:checked').value;
             const deadlineValue = document.querySelector('input[name="deadline"]:checked').value;
-            
+
             console.log('Selected Type:', typeValue);
             console.log('Selected Grade:', gradeValue);
             console.log('Selected Interests:', interestValues);

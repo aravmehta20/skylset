@@ -1,5 +1,5 @@
 // Updated cardLoader.js
-
+import{contains} from "../scripts/miscellaneousFunctions.js"
 // Define the card template directly in JavaScript to avoid fetch issues
 const CARD_TEMPLATE = `
 <div class="card">
@@ -7,15 +7,15 @@ const CARD_TEMPLATE = `
         <span class="opportunity-type">{{type}}</span>
         <h3>{{name}}</h3>
         <div class="card-info">
-            <p><strong>Price:</strong>{{price}}</p>
+            <p><strong>{{typeOfPrice}}</strong>{{price}}</p>
             <p><strong>SkylScore Rating:</strong> {{skylscore}}</p>
             <p><strong>Area of Interest:</strong> {{area_of_interest}}</p>
         </div>
         <div class="card-footer">
             <span class="deadline">Deadline: {{deadline}}</span>
-            <a href="{{hyperlink}}" class="view-button">View Details →</a>
+            <a href="{{hyperlink}}" class="view-button" target="_blank">View Details →</a>
         </div>
-        <button class="save-later-button" title="Save for later">
+        <button class="save-later-button" title="Save for later" onclick="alert('Coming soon!')">
     <span style="color: #6a1b9a;">❤️</span> Save for Later
 </button>
 
@@ -32,9 +32,10 @@ function editCardTemplate(template, opportunity) {
     
 
     // Replace all placeholders with data
-    card = card.replace('{{type}}', opportunity.type);
+    card = card.replace('{{type}}', autoCapitalize(opportunity.type));
     card = card.replace('{{name}}', opportunity.name);
-    card = card.replace('{{price}}', " $" + opportunity.price);
+    card = card.replace('{{typeOfPrice}}', determineTypeOfPrice(opportunity.type));
+    card = card.replace('{{price}}', priceToFormattedString(opportunity.price));
     card = card.replace('{{skylscore}}', opportunity.skylscore);
     card = card.replace('{{area_of_interest}}', arrayToFormattedString(opportunity.area_of_interest));
     card = card.replace('{{deadline}}', opportunity.deadline);
@@ -100,5 +101,15 @@ function addCommasToPrice(price){
     for(let i = priceStr.length-4; i >=0; i-=3){
         priceStr = priceStr.substring(0,i+1) + "," + priceStr.substring(i+1);
     }
-    return priceStr
+    return priceStr;
+}
+function determineTypeOfPrice(type){
+    if(contains(type,"scholarship")){
+        return "Amount:";
+
+    }
+    return "Price:";
+}
+function autoCapitalize(str){
+    return str.substring(0,1).toUpperCase() + str.substring(1);
 }
