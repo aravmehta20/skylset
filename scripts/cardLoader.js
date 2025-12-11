@@ -90,6 +90,9 @@ function arrayToFormattedString(array){
     return result.substring(0,result.length-2);
 }
 function priceToFormattedString(price){
+    if(price===null){
+        return " "
+    }
     if(price===0){
         return " Free";
     }else{
@@ -97,6 +100,9 @@ function priceToFormattedString(price){
     }
 }
 function addCommasToPrice(price){
+    if(price===null){
+        return " "
+    }
     let priceStr = price.toString();
     for(let i = priceStr.length-4; i >=0; i-=3){
         priceStr = priceStr.substring(0,i+1) + "," + priceStr.substring(i+1);
