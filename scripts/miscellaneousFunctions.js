@@ -1,5 +1,6 @@
 
 export function formatDate(inputDate) {
+    if (!inputDate) return "";
     const date = new Date(inputDate);
     const options = { month: 'short', day: 'numeric', year: 'numeric' };
     return date.toLocaleDateString('en-US', options);
