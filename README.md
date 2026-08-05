@@ -2,7 +2,7 @@
 
 Skylset is a web platform that helps high school students discover and compare internships, scholarships, research opportunities, clubs, and academic programs.
 
-🌐 **Live Application:** https://skylset.com
+🌐 **Live Application:** https://aravmehta20.github.io/skylset/webpages/index.html
 
 ![Skylset Homepage](assets/readme/hero.png)
 
