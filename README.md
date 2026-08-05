@@ -2,7 +2,7 @@
 
 Skylset is a web platform that helps high school students discover and compare internships, scholarships, research opportunities, clubs, and academic programs.
 
-🌐 **Live Application:** https://aravmehta20.github.io/skylset/webpages/index.html
+**Live Application:** [https://skylset.com](https://aravmehta20.github.io/skylset/webpages/index.html)
 
 ![Skylset Homepage](assets/readme/hero.png)
 
@@ -16,10 +16,11 @@ Finding meaningful opportunities often requires searching across dozens of unrel
 
 ## Current Features
 
-- Keyword search
-- Multi-criteria filtering
-- Structured opportunity database
-- SkylScore competitiveness index
+- Search opportunities by keyword
+- Filter by opportunity type, interest area, grade, location, cost, and deadline
+- Browse internships, scholarships, research programs, clubs, and academic programs
+- View structured opportunity information
+- Compare opportunities using SkylScore
 - Responsive desktop and mobile interface
 
 ---
@@ -41,15 +42,16 @@ Finding meaningful opportunities often requires searching across dozens of unrel
 ```mermaid
 flowchart LR
 A[Opportunity Aggregators]
---> B[Playwright Scraper]
+--> B[Playwright Browser Automation]
 --> C[Data Extraction]
 --> D[Normalization]
---> E[Supabase Database]
---> F[Frontend]
+--> E[(Supabase Database)]
+--> F[Skylset Website]
 --> G[Search & Filters]
 ```
 
-See **docs/architecture.md** for more information.
+For additional details, see the
+[Architecture Documentation](docs/architecture.md).
 
 ---
 
@@ -57,54 +59,60 @@ See **docs/architecture.md** for more information.
 
 ```text
 Opportunity Aggregators
-↓
+        ↓
 Playwright Browser Automation
-↓
+        ↓
 Field Extraction
-↓
+        ↓
 Normalization
-↓
+        ↓
 Manual Review
-↓
-Supabase
-↓
+        ↓
+Supabase Database
+        ↓
 Skylset Website
 ```
+
+The complete collection workflow is documented in the
+[Data Pipeline Documentation](docs/data-pipeline.md).
 
 ---
 
 ## Opportunity Data
 
-Each opportunity may contain
+Each opportunity may contain:
 
 - Name
-- Type
+- Opportunity Type
 - Description
 - Deadline
 - Location
 - Area of Interest
 - Eligibility
 - Cost
-- Official Link
+- Official Website
 - SkylScore
 
-Unknown information is stored as **null** rather than guessed.
+When information cannot be verified, it is stored as `null` rather than being estimated.
 
 ---
 
 ## SkylScore
 
-SkylScore is a transparent 1–10 competitiveness index.
+SkylScore is a transparent **1–10 competitiveness index** designed to help students compare opportunities.
 
-Factors include
+It considers factors such as:
 
 - Acceptance rate
-- Applicant pool
+- Applicant pool size
 - Institutional reputation
 - Scholarship value or program cost
 - Application complexity
 
-It is intended only as a comparison tool—not an admissions prediction.
+SkylScore is intended only as a comparison tool—it is **not** an admissions prediction or guarantee.
+
+The complete methodology is available in the
+[SkylScore Documentation](docs/skylscore.md).
 
 ---
 
@@ -123,15 +131,22 @@ webscraper/
 
 ## Running Locally
 
+Clone the repository:
+
 ```bash
 git clone https://github.com/aravmehta20/skylset.git
 cd skylset
+```
+
+Start a local server:
+
+```bash
 python3 -m http.server 8000
 ```
 
-Open
+Then open:
 
-```
+```text
 http://localhost:8000/webpages/index.html
 ```
 
@@ -139,27 +154,40 @@ http://localhost:8000/webpages/index.html
 
 ## Limitations
 
-- Opportunity information may become outdated
-- Official websites should always be consulted
-- Aggregator websites sometimes omit information
-- Automated scraping still requires manual review
+- Opportunity information may become outdated after collection.
+- Aggregator websites occasionally provide incomplete information.
+- Official program websites should always be considered the authoritative source.
+- Automated scraping still requires manual review before publication.
+- Some organizations do not publish enough information for a complete SkylScore.
 
 ---
 
 ## Project Status
 
-Current public release includes
+The current public release includes:
 
-- Search
-- Filtering
 - Opportunity database
-- Playwright scraping pipeline
-- SkylScore
+- Playwright data collection pipeline
+- Supabase backend
+- Search
+- Multi-criteria filtering
+- SkylScore competitiveness index
+- Responsive web interface
 
-Authentication, personalization, and favorites are not included in this public release.
+Authentication, personalized recommendations, saved opportunities, and the opportunity quiz are not included in the current public release.
+
+---
+
+## Documentation
+
+- [Architecture](docs/architecture.md)
+- [Data Pipeline](docs/data-pipeline.md)
+- [SkylScore Methodology](docs/skylscore.md)
 
 ---
 
 ## Author
 
-Arav Mehta
+Created by **Arav Mehta**.
+
+Incoming Biomedical Engineering student at **The University of Texas at Austin** with interests in biomedical devices, embedded systems, human-computer interaction, and data-driven engineering.
